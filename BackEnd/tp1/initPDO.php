@@ -1,5 +1,10 @@
 <?php
-    require_once("config.php");
+    define('_MYSQL_HOST','127.0.0.1');
+    define('_MYSQL_PORT',3306);
+    define('_MYSQL_DBNAME','dbtest');
+    define('_MYSQL_USER','root');
+    define('_MYSQL_PASSWORD','pwd');
+
     $connectionString = "mysql:host=". _MYSQL_HOST;
 
     if(defined('_MYSQL_PORT'))
@@ -13,6 +18,5 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch (PDOException $erreur) {
-            echo'Erreur : '.$erreur->getMessage();
+            myLog('Erreur : '.$erreur->getMessage());
     }
-    echo "done";
