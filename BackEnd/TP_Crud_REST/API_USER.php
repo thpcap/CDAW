@@ -35,6 +35,17 @@ class User {
      * 
      * The script sets the appropriate HTTP status code and returns a JSON response.
      */
+    */
+
+    /**
+    * Sanitizes input to protect against SQL injection.
+    *
+    * @param string $input The input to be sanitized.
+    * @return string The sanitized input.
+    */
+    public static function sanitizeInput($input) {
+        return self::db()->quote($input);
+    }
     private static $pdo;
 
     public function __construct($pdo) {
@@ -60,29 +71,38 @@ class User {
     }
 
     public function getUserById($id) {
+        $id = self::sanitizeInput($id);
         $stmt = self::query("SELECT * FROM users WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getUserByName($name) {
+        $name = self::sanitizeInput($name);
         $stmt = self::query("SELECT * FROM users WHERE name = :name", [':name' => $name]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getUserByEmail($email) {
+        $email = self::sanitizeInput($email);
         $stmt = self::query("SELECT * FROM users WHERE email = :email", [':email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function createUser($name, $email) {
+        $name = self::sanitizeInput($name);
+        $email = self::sanitizeInput($email);
         return self::query("INSERT INTO users (name, email) VALUES (:name, :email)", [':name' => $name, ':email' => $email])->rowCount() > 0;
     }
 
     public function updateUser($id, $name, $email) {
+        $id = self::sanitizeInput($id);
+        $name = self::sanitizeInput($name);
+        $email = self::sanitizeInput($email);
         return self::query("UPDATE users SET name = :name, email = :email WHERE id = :id", [':id' => $id, ':name' => $name, ':email' => $email])->rowCount() > 0;
     }
 
     public function deleteUser($id) {
+        $id = self::sanitizeInput($id);
         return self::query("DELETE FROM users WHERE id = :id", [':id' => $id])->rowCount() > 0;
     }
 }
