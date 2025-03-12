@@ -35,7 +35,6 @@ class User {
      * 
      * The script sets the appropriate HTTP status code and returns a JSON response.
      */
-    */
 
     /**
     * Sanitizes input to protect against SQL injection.
