@@ -49,8 +49,12 @@ switch($controllerName) {
     case 'users' :
         // GET api.php?/users
         // POST api.php?/users
-        $controller = new UsersController($requestMethod,$data);
+        $controller = new UsersController($requestMethod, $data);
         break;
+    case 'login':
+        $controller = new LoginController($requestMethod,$data);
+        break;
+
     default :
         header("HTTP/1.1 404 Not Found");
         exit();

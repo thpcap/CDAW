@@ -22,7 +22,7 @@ class UsersController {
                 $response = $this->addUser();
                 break;
             case 'PUT':
-                $response = $this->modifyUser();
+                $response = $this->updateUser();
                 break;
             case 'DELETE':
                 $response = $this->deleteUser();
@@ -38,12 +38,12 @@ class UsersController {
 
     private function getAllUsers()
     {
-        return UserModel::getAllUsers();
+        return UserModel::getAlluser();
     }
 
     private function updateUser(){
         if(isset($data['name']) && isset($data['email'])&&isset($data['id'])){
-            return UserModel::updateUser();            
+            return UserModel::updateUser($this->data['id'],$this->data['name'],$this->data['email']);            
         }else{
             $response['status_code_header'] = 'HTTP/1.1 400 Bad Request';
             $response['body'] = null;
@@ -52,17 +52,17 @@ class UsersController {
     }
 
     private function deleteUser(){
-        if(isset($this->data['id']){
-            return UserModel::deleteUser(data['id']);
+        if(isset($this->data['id'])){
+            return UserModel::deleteUser($this->data['id']);
         }else{
             $response['status_code_header'] = 'HTTP/1.1 400 Bad Request';
             $response['body'] = null;
             return $response;
         }
     }
-    private function addUser{
-        if(isset($data['name']) && isset($data['email'])){
-            return UserModel::createUser();
+    private function addUser(){
+        if(isset($this->data['name']) && isset($this->data['email'])){
+            return UserModel::createUser($this->data["name"],$this->data['email']);
         }else{
             $response['status_code_header'] = 'HTTP/1.1 400 Bad Request';
             $response['body'] = null;
