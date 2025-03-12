@@ -1,5 +1,6 @@
 <?php
 require_once 'initPDO.php';
+header("Access-Control-Allow-Origin: GET, POST, PUT, DELETE");
 
 class User {
     /**
@@ -69,7 +70,7 @@ class User {
     }
 }
 
-header('Content-Type: application/json');
+header(header: 'Content-Type: application/json');
 $method = $_SERVER['REQUEST_METHOD'];
 $user = new User($pdo);
 $response = [];
