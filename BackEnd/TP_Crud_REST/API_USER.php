@@ -70,7 +70,7 @@ class User {
     }
 
     public function getUserById($id) {
-        $id = self::sanitizeInput($id);
+        $id = is_int($id);
         $stmt = self::query("SELECT * FROM users WHERE id = :id", [':id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -94,14 +94,14 @@ class User {
     }
 
     public function updateUser($id, $name, $email) {
-        $id = self::sanitizeInput($id);
+        $id = is_int($id);
         $name = self::sanitizeInput($name);
         $email = self::sanitizeInput($email);
         return self::query("UPDATE users SET name = :name, email = :email WHERE id = :id", [':id' => $id, ':name' => $name, ':email' => $email])->rowCount() > 0;
     }
 
     public function deleteUser($id) {
-        $id = self::sanitizeInput($id);
+        $id = is_int($id);
         return self::query("DELETE FROM users WHERE id = :id", [':id' => $id])->rowCount() > 0;
     }
 }
