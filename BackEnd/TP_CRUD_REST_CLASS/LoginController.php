@@ -21,13 +21,13 @@ class LoginController{
             case 'Post':
                 if(isset($this->data['password'])&&(isset($this->data['id']))){
                     if(loginModel::check_password($this->data['password'],$this->data['id'])){
-                        return loginModel::createTocken();
+                        return loginModel::createTocken($this->data['id']);
                     }
                 }
                 break;
             default:
 
-            break
+            break;
         }
 	}
 }

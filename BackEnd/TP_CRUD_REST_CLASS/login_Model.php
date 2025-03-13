@@ -1,14 +1,20 @@
 <?php
+    include_once __ROOT_DIR . '/libs/php-jwt/src/BeforeValidException.php';
+    include_once __ROOT_DIR . '/libs/php-jwt/src/ExpiredException.php';
+    include_once __ROOT_DIR . '/libs/php-jwt/src/SignatureInvalidException.php';
+    include_once __ROOT_DIR . '/libs/php-jwt/src/JWT.php';
+    use \Firebase\JWT\JWT;
     class loginModel{
+        
         public static function check_password($User_Password,$id){
             $user2=UserModel::getUserById($id);
             $pass=$user2->USER_PASSWORD;
-            return=password_verify($User_Password,$pass);
+            return password_verify($User_Password,$pass);
         }
         public static function createTocken($id){
             $user=UserModel::getUserById($id);
             $firstname=$user->USER_FIRSTNAME;
-            $firstname=$user->USER_LASTNAME;
+            $lastname=$user->USER_LASTNAME;
             $email=$user->USER_EMAIL;
 
             $secret_key = "YOUR_SECRET_KEY";
@@ -31,7 +37,7 @@
             ));
             http_response_code(200);
     
-            $jwt = JWT::encode($token, $secret_key);
+            $jwt = JWT::encode($token, $secret_key,"ES384");
             return json_encode(
                 array(
                     "message" => "Successful login.",
