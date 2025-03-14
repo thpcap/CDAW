@@ -13,13 +13,17 @@
                 case 'GET':
                     if($this->request->getControllerName()=="users"){
                         return $this->getAllUsers();
-                    }elseif($this->request->getControllerName()=="user"&&isset($this->request->getParameters()[0])){
-                        return $this->getUserById($this->request->getParameters()[0]);
+                    }elseif($this->request->getControllerName()=="user"){
+                        if(isset($this->request->getParameters()[0])){
+                            return $this->getUserById($this->request->getParameters()[0]);
+                        }else{
+                            return Response::errorInParametersResponse('{"Error":"No parameters provided"}');
+                        }
                     }
                     
                 
             }
-            return Response::errorResponse("unsupported parameters or method in users");
+            return Response::errorResponse('{"Error":"unsupported parameters or method in users}"');
         }
 
         protected function getAllUsers()

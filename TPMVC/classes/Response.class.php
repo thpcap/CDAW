@@ -3,7 +3,7 @@
         protected $code;
         protected $body;
 
-        public function __construct($code = 404, $msg = "") {
+        public function __construct($code = 500, $msg = "") {
             $this->code = $code;
             $this->body = $msg;
         }
