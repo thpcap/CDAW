@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <button id="b1">b1</button>
+        <button id="b2">b2</button>
+    </body>
+    <script>
+        function handler(e){
+            let id= e.target.id;
+            alert(id);
+            if(id=="b1"){
+                b2.addEventListener("click",handler);
+                b1.removeEventListener("click",handler);
+            }else{
+                b1.addEventListener("click",handler);
+                b2.removeEventListener("click",handler);
+            }
+        }
+        b1.addEventListener("click",handler);
+    </script>
+</html>
