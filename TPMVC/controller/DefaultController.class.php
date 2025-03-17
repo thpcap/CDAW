@@ -7,7 +7,7 @@
         }
 
         public function processRequest() {
-        return Response::errorResponse('{ "message" : "Default controller, Unsupported endpoint","name":"'.$this->name.'","request":"'.$this->request->getHttpMethod().'"}' );
+        return Response::errorResponse('{ "message" : "Default controller, Unsupported endpoint","endpointName":"'.$this->name.'","requestMethod":"'.$this->request->getHttpMethod().'"}' );
         }
 
     }
